@@ -1,29 +1,35 @@
 <% include ../shared/header %>
 <% include ../shared/nav %>
-	<div class="_pea-container _pea-theme">
-		<h1> Browse <a href="/browse/<%= request.params.entitytype %>"><%= request.params.entitytype %></a> 
+	<div class="container">
+		<h1> Browse <a href="/browse/<%= request.params.entitytype %>"><%= request.params.entitytype %></a> <%= request.params.entityitems %>
 		</h1>
-		<div class=" _pea-form">
-			<% if(tags && tags.length>0){
-				tags.forEach(function(tag){
-					if(request.params.entitytype==="authors"){
-						%> <a href="/browse/<%= request.params.entitytype %>/<%= tag.username %>" class="_pea-button _pea-color-info"><%= tag.username %></a> <%
-					}
-					else{
-						%> <a href="/browse/<%= request.params.entitytype %>/<%= tag.name %>" class="_pea-button _pea-color-info"><%= tag.title %></a> <%
-					}
-				});
+			<div class="col-12">
+				<% if(tags && tags.length>0){
+					tags.forEach(function(tag){
+						if(request.params.entitytype==="authors"){
+							%> <a href="/browse/<%= request.params.entitytype %>/<%= tag.username %>" class="label label-primary"><%= tag.username %></a> <%
+						}
+						else{
+							%> <a href="/browse/<%= request.params.entitytype %>/<%= tag.name %>" class="label label-primary"><%= tag.title %></a> <%
+						}
+					});
 				} %>
-		</div>
+			</div>
 		<% if(docs && docs.length>0){
 			var fullpost=false;
 			var collectionpost=false;
 			docs.forEach(function(post){%>
-				<% include ../shared/partial/_post %>
+				<div class="col-12">
+          <% include ../shared/partial/_post_micro %>
+        </div>
 			<%});
 		}
 		else{%>
-			no docs
+			<div class="row">
+        <div class="jumbotron">
+          <h1>No Docs!</h1>
+        </div>
+      </div>
 		<%}%>
 	</div>
 <% include ../shared/footer %>
